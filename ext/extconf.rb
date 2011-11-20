@@ -16,13 +16,13 @@ def lib_names lib, defaults
 end
 
 $CFLAGS  = inc_paths('opencv', %w(/usr/include/opencv)) + ' -Wall'
-$LDFLAGS = lib_names('opencv', %w(highgui cxcore))
+$LDFLAGS = lib_names('opencv', %w(highgui core_c))
 
-headers = [ 'stdio.h', 'stdlib.h', 'string.h', 'opencv/cxcore.h', 'opencv/highgui.h' ]
-lib_1   = [ 'cxcore',  'cvInitFont',    headers ]
-lib_2   = [ 'highgui', 'cvEncodeImage', headers ]
+headers = [ 'stdio.h', 'stdlib.h', 'string.h', 'opencv2/core/core_c.h', 'opencv2/highgui/highgui_c.h' ]
+lib_1   = [ 'opencv_core',  'cvInitFont',    headers ]
+lib_2   = [ 'opencv_highgui', 'cvEncodeImage', headers ]
 
-if have_header('opencv/cxcore.h') && have_library(*lib_1) && have_library(*lib_2)
+if have_header('opencv2/core/core_c.h') && have_library(*lib_1) && have_library(*lib_2)
   create_makefile 'similie'
 else
   puts %q{
